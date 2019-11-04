@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	        crossorigin="anonymous">
+	        
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	        crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	        crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	        crossorigin="anonymous"></script>
+</head>
+<br>
+<body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+	<div class="container">
+		<div align="right">
+			<a href="/logout/" class="btn btn-dark btn-lg"> Logout </a>
+		</div>
+    <div class="media" style="border-style: ridge">
+		  <div class="media-body">
+		    <h3>#{{ id }} {{ title }}</h3>
+		    <p>{{ content }}</p>
+		    <form method="Post" action="/post/{{ id }}/vote">
+		    	{% csrf_token %}
+		    	{% if is_voted %}
+				   <button type="submit" class="btn btn-success" id="vote" name="vote" disabled>Vote</button>
+			   	{% else %}
+			   		<button type="submit" class="btn btn-success" id="vote" name="vote">Vote</button>
+					{% endif %}
+					<span>{{ votes }} votes and {{ total_comments }} comments</span>
+		    </form><br>
+		    <form method="Post" action="/post/{{ id }}/comment">
+		    	{% csrf_token %}
+		    	<div class="input-group mb-3">
+			    	<textarea class="form-control" id="post_comment" rows="2" name="post_comment"></textarea>
+			    	<div class="input-group-append">
+					    <button class="btn btn-outline-secondary" type="submit" id="comment" name="comment">Comment</button>
+					  </div>
+					</div>
+		    </form>
+		    {% for comment in comments %}
+			    <div class="media" style="border-style: ridge;">
+					  <h3 class="mr-3"> {{ comment.commentedby }} </h3>
+					  <div class="media-body">
+					    {{ comment.content }}
+					  </div>
+					</div>
+		    {% endfor %}
+		  </div>
+		</div>
+	</div>
+</body>
+</html>
