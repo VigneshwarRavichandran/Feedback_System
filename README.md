@@ -7,68 +7,43 @@
 
 **Post**
 
- - Name
- - Location
+ - ID
+ - Title
+ - Content
 
 
 
-**Department**
+**Vote**
 
  - ID
- - Name
+ - VotedBy
+ - Post
 
 
 
-**Subject**
-
- - ID
- - Name
- - Department ID
-
-
-
-**Users**
+**Comment**
 
  - ID
- - Hashed Password
+ - CommentedBy
+ - Text
+ - Post
 
 
+## *Actions*
 
-**Professor**
-
- - ID
- - Name
- - Subject ID
-
-
-
-**Student**
-
- - ID
- - Name
- - Department ID
-
-
-
-
-## *Actors and Actions*
-
-
-**Professor**
-
- - View all his students
-
-
-
-**Student**
-
- - View all his subjects
- - View all his professors
-
+ 
+ - Register a new user.
+ - Login and Logout actions for the user.
+ - View all the posts.
+ - Create new post.
+ - Vote for any post (If not voted for the post previously).
+ - Comment for any post.
 
 
 ## *Endpoints*
 
 
+ - Register
  - Login
- - Profile
+ - Home
+ - Post
